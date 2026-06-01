@@ -66,6 +66,9 @@ Add an entry whenever an LLM or agent catches you off guard. Include enough deta
 
 
 ### Paper 
+- As the authors also note, the paper reports successful results using specific database outputs that are too simple for a meaningful validation. It would be useful to verify whether, with different datasets, the variance introduced by these outputs exacerbates the error or helps the model generalize.
+
+- It would be very interesting to validate the architecture on multi-hop datasets more complex than GeneHop to assess its tolerance to context degradation. Specifically, it is necessary to analyze whether the model’s tendency to generate shortcuts and skip decision calls during sequential API calls causes a loss of information or error propagation, due to the lack of filtering of intermediate payloads and the LLM’s tendency to optimize the chain at the expense of syntactic accuracy.
 
 ### Domain expertise - What is one example from my own domain where expertise is needed to instruct an LLM, design a model, or validate an AI-generated result? 
 When working with generative models to write code for deep learning neural networks, I frequently encounter errors in tensor dimension tracking. The LLM generates syntactically flawless code (as confirmed by the LLMs themselves in their code comments) that appears correct at first glance. My experience is the only effective internal validation tool: since the model operates by statistically predicting tokens without computing the algebra at runtime, it is up to me to analytically validate the data flow (batches, channels, etc.), especially when working with convolutional networks, and very often it is necessary to directly tell the model where it went wrong to preserve the conversation.
