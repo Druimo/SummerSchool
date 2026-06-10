@@ -74,28 +74,86 @@ Add an entry whenever an LLM or agent catches you off guard. Include enough deta
 When working with generative models to write code for deep learning neural networks, I frequently encounter errors in tensor dimension tracking. The LLM generates syntactically flawless code (as confirmed by the LLMs themselves in their code comments) that appears correct at first glance. My experience is the only effective internal validation tool: since the model operates by statistically predicting tokens without computing the algebra at runtime, it is up to me to analytically validate the data flow (batches, channels, etc.), especially when working with convolutional networks, and very often it is necessary to directly tell the model where it went wrong to preserve the conversation.
 
 
-
-
-#### Surprises
-
-<!-- Chatbot exercise; anything else that caught you off guard -->
+### Surprises
+No surprises 
 
 
 
 
+## Week 2
+
+For the exercise with the agent i decided to use Gemini 3.5 Flash (High) through Antigravity.
+
+### From the materials
+
+Results from the trap exercise after the first prompt:
+alpha_orf       TGAAATTTGGCCAATTTTAA    *NLANF
+beta_orf        TGGCTGCCCCAAAGCTATGA    WLPQSY
+
+#### Does every protein start with M?
+No, neither of the two proteins starts with M
+
+#### Does every protein end with * (stop)?
+No, only alpha_orf ends with *
+
+#### Is the nucleotide length divisible by 3?
+No, either of them is 20, not a multiple of 3, there is also a warning while starting the script:
+_"BiopythonWarning: Partial codon, len(sequence) not a multiple of three. Explicitly trim the sequence or add trailing N before translation. This may become an error in future."_
+
+#### Agent request
+My request as asked in week2.md:
+
+_Does every protein start with M?_ 
+_Does every protein end with * (stop)?_
+_Is the nucleotide length divisible by 3?_
+_Based on these three checks alone, is the output correct?_
+
+The agent responded with:
+
+_No. Based on these biological invariants alone, the output is incorrect._
+_This is because GFF3 coordinates are 1-based and inclusive, whereas Python slices are 0-based and exclusive at the end._
+_The naive slicing `genome_seq[start:end]` shifts the reading frame and misses the correct start/stop coordinates._
+
+
+
+#### Discussion questions
+
+##### What other "looks right but isn't" failures might hide in agent-generated bioinformatics code? (Strand handling, GRCh37/38 confusion, BED vs GFF, 0-based vs 1-based VCF positions, samtools mpileup off-by-one, BAM flag bitfield misreads, phred encoding…)
+Some examples include the incorrect handling of specific data, confusions between different genomes, confusion between different file formats, and errors in low-level binary formats like .fasta files etc..
+
+##### For your own subfield, what are three biological invariants you could routinely use to validate agent output?
+Working with the multiple sclerosis, i'm using to validate the agent output the attention maps respects to the real immune cell infiltration in the tissue of interest, such as the brain
+
+##### If you had ten thousand CDS features and couldn't eyeball them all, how would you scale this validation?
+I would use a combination of automated scripts to check for the presence of Met at the start of the sequence, stop codons at the end, and divisibility by 3, like in the trap exercise, and amplify the script
 
 
 
 
-### Week 2
 
-#### From the materials
 
-<!-- ReAct / Karpathy Software 3.0 notes; trap-exercise discussion questions -->
 
-#### Surprises
 
-<!-- Trap exercise, mini-project, agent moments — be specific -->
+### Surprises
+
+### Exercise 1 - Editor mode, tab completion, and inline edits
+I tried to put the mouse pointer in the portions of the code where I expected a tab completion to appear and fix the error but the model did not give me any suggestions, so I had to delete the problematic lines and ask the model to rewrite them.
+
+### Exercise 2 - Chat with codebase context
+Surprisingly, the agent found all the error after my question and the tab completion finally worked
+
+### Exercise 3 - Agent mode on a real task
+I asked specifically: "Crea uno script che presa una sequenza genomica mi faccia un'analisi statistica secondo le norme standard bioinformatiche. Sii conciso" (Create a script that takes a genomic sequence and performs a statistical analysis according to standard bioinformatics rules. Be concise).
+The surprise was that, even though I didn't know where to start with this kind of code since I have never tackled bioinformatics tasks before, the model's code was very concise and well-structured, allowing me to understand it and make logical sense of the content.
+
+### Exercise 4 - The trap exercise>
+The model acctually corrected the script after my request, adding the -1 to the start coordinate
+
+### Mini project
+I never sow an implementation plan before using an agent. I think it is a good idea to ask the agent to create an implementation plan before creating the code, in order to be sure that the agent understood the task and to be able to check the agent's understanding of the task.
+It also implemented a walkthrough of the code, which is very useful for understanding the code and for debugging.
+The model did not produce errors, but i really need a Domain expertise to evaluate it in this bioinformatics task
+
 
 ### Week 3
 
@@ -105,7 +163,6 @@ When working with generative models to write code for deep learning neural netwo
 
 #### Surprises
 
-<!-- FM exercises, agent handling of models, validation hooks -->
 
 ### Week 4
 
