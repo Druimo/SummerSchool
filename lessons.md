@@ -115,7 +115,6 @@ _This is because GFF3 coordinates are 1-based and inclusive, whereas Python slic
 _The naive slicing `genome_seq[start:end]` shifts the reading frame and misses the correct start/stop coordinates._
 
 
-
 #### Discussion questions
 
 ##### What other "looks right but isn't" failures might hide in agent-generated bioinformatics code? (Strand handling, GRCh37/38 confusion, BED vs GFF, 0-based vs 1-based VCF positions, samtools mpileup off-by-one, BAM flag bitfield misreads, phred encoding…)
@@ -126,12 +125,6 @@ Working with the multiple sclerosis, i'm using to validate the agent output the 
 
 ##### If you had ten thousand CDS features and couldn't eyeball them all, how would you scale this validation?
 I would use a combination of automated scripts to check for the presence of Met at the start of the sequence, stop codons at the end, and divisibility by 3, like in the trap exercise, and amplify the script
-
-
-
-
-
-
 
 
 ### Surprises
@@ -155,14 +148,26 @@ It also implemented a walkthrough of the code, which is very useful for understa
 The model did not produce errors, but i really need a Domain expertise to evaluate it in this bioinformatics task
 
 
-### Week 3
 
-#### From the materials
 
-<!-- Jumper lecture / CARBON reading notes -->
+## Week 3
+
+### From the materials
+
+#### Exercise A
+Protein used:
+TPPASLPGSLTNVKALQKSPGPQRERKSSSSSEDRNRMKTLGRRDSSDDWEIPDGQITVGQRIGSGSFGTVYKGKWHGDV
+
+##### Identify high vs low pLDDT regions. What does that map to biologically? (Disorder, flexible loops, signal peptides...)
+- **Low-confidence region (residues 1–45):** This region has very low pLDDT scores (averaging ~48). Biologically, this corresponds to the regulatory linker region of human BRAF connecting the CR2 region to the kinase domain. This region is intrinsically disordered (an IDR) and highly flexible.
+- **High-confidence region (residues 46–80):** This region has high to very high pLDDT scores (peaking at ~98, averaging ~92). Biologically, this corresponds to the N-terminal lobe of the conserved catalytic protein kinase domain of BRAF (starting at residue 457 of BRAF), which folds into a stable 3D structure.
+
+##### Predict the same sequence twice with different seeds and observe variation.
+- **Structured C-terminal domain (residues 46–80):** The structured kinase segment shows almost zero conformational variation across all predictions (rank_1 through rank_5). The PAE is very low (<10) within this block, indicating that the relative positioning of these residues is rigidly predicted and highly reproducible.
+- **Disordered N-terminal tail (residues 1–45):** The disordered tail shows massive conformational differences across the 5 models (as visualized in `pr1.png` through `pr5.png`), adopting various extended and loop-like shapes. The lack of a consensus structure, combined with high PAE between the tail and the kinase domain, shows that AlphaFold is predicting a set of random-coil conformations for this intrinsically disordered segment.
 
 #### Surprises
-
+I appreciated a lot the complexity and the workflow of the linked colab notebook
 
 ### Week 4
 
