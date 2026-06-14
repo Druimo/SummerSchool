@@ -169,6 +169,10 @@ TPPASLPGSLTNVKALQKSPGPQRERKSSSSSEDRNRMKTLGRRDSSDDWEIPDGQITVGQRIGSGSFGTVYKGKWHGDV
 #### Surprises
 I appreciated a lot the complexity and the workflow of the linked colab notebook
 
+I found more easy Exercise B than Exercise A, since i already have some experience in the field of machine learning and in the use of embeddings
+
+
+
 ### Week 4
 
 #### From the materials
