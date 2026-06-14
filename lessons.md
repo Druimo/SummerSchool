@@ -159,7 +159,7 @@ The model did not produce errors, but i really need a Domain expertise to evalua
 
 #### From the materials
 
-<!-- Jumper lecture / AlphaFold3 paper notes -->
+<!-- Jumper lecture / CARBON reading notes -->
 
 #### Surprises
 
