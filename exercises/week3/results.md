@@ -40,4 +40,5 @@ Use this file for the short Week 3 write-up. Keep it factual: what ran, what fai
 
 ## Surprises
 
-List at least one model output that was hard to interpret and one validation habit you will reuse.
+- **Model output hard to interpret:** The N-terminal tail of BRAF (residues 1-45), because it is intrinsically disordered and AlphaFold predicts completely different random-coil shapes across different seeds.
+- **Validation habit to reuse:** Running predictions with multiple seeds and comparing the resulting conformations, combined with checking the PAE matrix to differentiate rigid domains from flexible/disordered loops.

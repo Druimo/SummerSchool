@@ -171,14 +171,34 @@ I appreciated a lot the complexity and the workflow of the linked colab notebook
 
 I found more easy Exercise B than Exercise A, since i already have some experience in the field of machine learning and in the use of embeddings
 
+Regarding the model outputs:
+- **Easy to interpret:** The structured C-terminal of BRAF was very easy to trust due to its consistently high pLDDT scores (about 92) and low PAE.
+- **Biological checks & Trust:** I used the PAE plot and multi-seed comparisons as validation hooks. I would not trust a structure prediction from a notebook run alone if it shows low pLDDT and high PAE, as these models are trained to output a single conformation even for intrinsically disordered regions which naturally adopt ensembles of states.
 
 
-### Week 4
 
-#### From the materials
 
-<!-- MCP / BixBench notes -->
+## Week 4
 
-#### Surprises
+### From the materials
 
-<!-- BioTerm-Bench, MCP demo, failure modes -->
+#### Exercise C: Three ways agents use tools
+Task: "Given a list of UniProt IDs, return protein length and organism."
+
+1. **Code mode**:
+   - *Artifact*: A reusable script, or production workflow.
+   - *Failure mode*: network requests might fail without proper error handling, that generally happened a few times during my time using AI.
+   - *Use case*: reusable analyses
+2. **Command mode**:
+   - *Artifact*: Terminal output.
+   - *Failure mode*: Sometimes the command are useless respect to the task, for example if the user ask you to do something more complex than expected.
+   - *Use case*: a really quick, one-off exploration.
+3. **MCP/tool mode**:
+   - *Artifact*: Direct response derived from structured tool outputs.
+   - *Failure mode*: the schema might strictly limit what metadata can be retrieved.
+   - *Use case*: Production workflows.
+
+
+### Surprises
+The capacity of the LLM to understand the context of the question is really high, as well as the capacity to reason on the output of the task. During these weeks I never felt the need of providing a deep context to the model. The surprise is that i used internet less than what i thought. 
+
